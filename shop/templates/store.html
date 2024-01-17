@@ -1,45 +1,21 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block body %}
-	<div class="row">
-		<div class="col-lg-4">
-			<img class="thumbnail" src="/media/product/images/shoes.jpg">
-			<div class="box-element product">
-				<h6><strong>Product</strong></h6>
-				<hr>
+<div class="row">
+	{% for product in products %}
+	<div class="col-lg-4" style="margin-top: 25px;">
+		<img class="thumbnail" src="/media/{{product.image}}">
+		<div class="box-element product">
+			<h6><strong>{{product.prod_name}}</strong></h6>
+			<hr>
 
-				<button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
-				<a class="btn btn-outline-success" href="#">View</a>
-				<h4 style="display: inline-block;"><strong>Rs.20</strong></h4>
+			<button class="btn btn-outline-secondary add-btn">Add to Cart</button>
+			<a class="btn btn-outline-success" href="#">View</a>
+			<h4 style="display: inline-block;"><strong> Rs.{{product.price}}</strong></h4>
 
-			</div>
-		</div>
-
-		<div class="col-lg-4">
-			<img class="thumbnail" src="/media/product/images/shoes.jpg">
-			<div class="box-element product">
-				<h6><strong>Product</strong></h6>
-				<hr>
-				
-				<button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
-				<a class="btn btn-outline-success" href="#">View</a>
-				<h4 style="display: inline-block;"><strong>Rs.20</strong></h4>
-				
-			</div>
-		</div>
-
-		<div class="col-lg-4">
-			<img class="thumbnail" src="/media/product/images/shoes.jpg">
-			<div class="box-element product">
-				<h6><strong>Product</strong></h6>
-				<hr>
-
-				<button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
-				<a class="btn btn-outline-success" href="#">View</a>
-				<h4 style="display: inline-block;"><strong>Rs.20</strong></h4>
-
-			</div>
 		</div>
 	</div>
+	{% endfor%}
+</div>
 
 {% endblock %}
