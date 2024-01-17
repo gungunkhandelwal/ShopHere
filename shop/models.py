@@ -17,6 +17,8 @@ class Product_details(models.Model):
     price = models.IntegerField(default=0)
     pub_date=models.DateField(auto_now_add=True)
     category=models.CharField(max_length=50,default="Sale")
+    digital = models.BooleanField(default=False, null=True, blank=True)
+
 
     def __str__(self):
         return self.prod_name
@@ -29,6 +31,15 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.id)
+    
+    @property
+    def shipping(self):
+        shipping=False
+        orderitems=self.orderitem_set.all()
+        for i in orderitems:
+            if i.product.digital ==False:
+                shipping=True
+            return shipping
     
     @property
     def get_cart_total(self):
