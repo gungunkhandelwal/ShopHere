@@ -43,7 +43,7 @@
         <br>
         <div class="box-element hidden" id="payment-info">
             <small>Paypal Options</small>
-            <button id="make-payment">Make Payment</button>
+            <button id="make-payment">Make Payment</button>  
         </div>
 
     </div>
@@ -73,6 +73,9 @@
         </div>
     </div>
 </div>
+
+<!-- For Checkout -->
+
 <script type="text/javascript">
     let shipping = '{{order.shipping}}';
     let total = '{{order.get_cart_total}}';
@@ -144,10 +147,10 @@
                 return response.json();
             })
             .then((data) => {
-                console.log('success',data);
+                console.log('success', data);
                 alert('Transaction completed');
 
-                window.location.href="{% url 'index' %}";
+                window.location.href = "{% url 'index' %}";
             });
 
 
