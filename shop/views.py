@@ -59,6 +59,11 @@ def updateItem(request):
         orderItem.delete()
     return JsonResponse('Item was added',safe=False)
 
+def prodView(request, myid):
+    product=Product_details.objects.filter(id=myid)
+    #Fetch the product using the id
+    return render(request, "prodView.html",{'products':product[0]})
+
 
 @csrf_exempt
 def processOrder(request):

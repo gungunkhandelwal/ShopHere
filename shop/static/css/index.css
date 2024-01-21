@@ -114,3 +114,9 @@ h4,h6{
 .hidden{
 	display: none!important;
 }
+
+/* For Product View */
+.prod_image{
+    height: 400px;
+    border: 2px solid black;
+}
