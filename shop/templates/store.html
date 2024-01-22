@@ -10,12 +10,11 @@
 			<hr>
 
 			<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn  update-cart">Add to Cart</button>
-			<a class="btn btn-outline-success" href="products/{{product.id}}">View</a>
+			<a class="btn" href="products/{{product.id}}" style="color: #5885af; background-color: #c3e0e5;">View</a>
 			<h4 style="display: inline-block;"><strong> Rs.{{product.price}}</strong></h4>
 
 		</div>
 	</div>
 	{% endfor%}
 </div>
-
 {% endblock %}
