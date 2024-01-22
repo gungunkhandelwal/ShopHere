@@ -64,6 +64,16 @@ def prodView(request, myid):
     #Fetch the product using the id
     return render(request, "prodView.html",{'products':product[0]})
 
+def contact(request):
+    if request.method=="POST":
+        print(request)
+        name=request.POST.get('name', '')
+        email=request.POST.get('email', '')
+        desc=request.POST.get('desc', '')
+        contact = ContactUs(name=name, email=email,desc=desc)
+        contact.save()
+    return render(request,'contact.html')
+
 
 @csrf_exempt
 def processOrder(request):
