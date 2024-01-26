@@ -22,7 +22,7 @@ class Product_details(models.Model):
 
     def __str__(self):
         return self.prod_name
-    
+     
 class Order(models.Model):
     customer=models.ForeignKey(Customer,on_delete=models.SET_NULL,null=True,blank=True)
     date_ordered=models.DateTimeField(auto_now_add=True)
