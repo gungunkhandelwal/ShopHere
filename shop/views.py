@@ -4,25 +4,28 @@ from .models import *
 import json
 import datetime
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.forms import UserCreationForm
+from .forms import CreateUserForm
+
 
 from .utilis import cookieCart ,cartData
 
 def index(request):
-    data=cartData(request)
+    data=cartData(request)  #Request data from cartData function
     
-    cartItems=data['cartItems']
-
-    products=Product_details.objects.all()
-    details={'products':products,'cartItems':cartItems}
+    cartItems=data['cartItems'] #Get number of item present in cart
+    
+    #Fetching data from models
+    products=Product_details.objects.all() 
+    details={'products':products,'cartItems':cartItems} 
     return render(request,'store.html',details)
 
 def cart(request):
     data=cartData(request)
     
     cartItems=data['cartItems']
-    order=data['order']
-    items=data['items']
-
+    order=data['order'] #Total number of order from Order model
+    items=data['items'] # Get items in the cart present
     context={'items':items,'order':order,'cartItems':cartItems}
     return render(request,'cart.html',context)
 
@@ -66,7 +69,6 @@ def prodView(request, myid):
 
 def contact(request):
     if request.method=="POST":
-        print(request)
         name=request.POST.get('name', '')
         email=request.POST.get('email', '')
         desc=request.POST.get('desc', '')
@@ -74,6 +76,21 @@ def contact(request):
         contact.save()
     return render(request,'contact.html')
 
+def registerPage(request):
+    form=CreateUserForm()
+
+    if request.method=="POST":
+        form=CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+
+    context={'form':form}
+    return render(request,'register.html',context)
+
+def loginPage(request):
+    context={}
+    return render(request,'login.html',context)
 
 @csrf_exempt
 def processOrder(request):
