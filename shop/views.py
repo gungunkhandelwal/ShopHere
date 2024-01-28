@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
-
+from .forms import SignUpForm
 from .utilis import cookieCart ,cartData
 
 def index(request):
@@ -124,4 +124,23 @@ def logout_user(request):
     logout(request)
     messages.success(request,('You have been logged out !'))
     return redirect('index')
+
+def register_user(request):
+    form=SignUpForm()
+    if request.method =='POST':
+        form=SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password1']
+            # log in user
+            user=authenticate(request,username=username,password=password)
+            login(request,user)
+            messages.success(request,('You have Registered succesfully!! Welcome to ShopHere !! Please login to Explore !'))
+            return redirect('index')
+        else:
+            messages.success(request,('There is an error,Try Again..'))
+            return redirect('register')
+    else:
+        return render(request,'register.html',{'form':form})
 

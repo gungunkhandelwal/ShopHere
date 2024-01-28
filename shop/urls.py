@@ -9,6 +9,7 @@ urlpatterns=[
     path('contact/',views.contact,name='ContactUs'),
     path('login/',views.login_user,name='login'),
     path('logout/',views.logout_user,name='logout'),
+    path('register/',views.register_user,name='register'),
 
     path('update_item/',views.updateItem,name='update_item'),
     path('process_order/',views.processOrder,name='process_order'),

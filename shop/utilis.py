@@ -7,7 +7,6 @@ def cookieCart(request):
        cart=json.loads(request.COOKIES['cart'])
     except:
         cart={}
-    print('Cart:',cart)
     items=[]
     order={'get_cart_total':0,'get_cart_items':0,'shipping':False}
     cartItems=order['get_cart_items']
@@ -43,14 +42,23 @@ def cookieCart(request):
 
 def cartData(request):
     if request.user.is_authenticated:
-        customer=request.user.customer
-        order,created=Order.objects.get_or_create(customer=customer,complete=False)
-        items=order.orderitem_set.all()
-        cartItems=order.get_cart_items
-    else:
-        cookieData = cookieCart(request)
-        cartItems = cookieData['cartItems']
-        order = cookieData['order']
-        items = cookieData['items']
+        try:
+            customer = request.user.customer
+        except Customer.DoesNotExist:
+            customer = None
 
-    return {'cartItems':cartItems,'order':order,'items':items}
+        if customer:
+            order, created = Order.objects.get_or_create(customer=customer, complete=False)
+            items = order.orderitem_set.all()
+            cart_items = order.get_cart_items
+        else:
+            # Handle the case where the user does not have a related Customer object
+            # (perhaps redirect them to a profile setup page or something similar)
+            cart_items, order, items = None, None, None
+    else:
+        cookie_data = cookieCart(request)
+        cart_items = cookie_data['cartItems']
+        order = cookie_data['order']
+        items = cookie_data['items']
+
+    return {'cartItems': cart_items, 'order': order, 'items': items}
