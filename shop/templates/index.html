@@ -74,9 +74,15 @@
                 <a class="nav-link" href="{% url 'index' %}"> Home</a>
                 <a class="nav-link" href="{% url 'ContactUs' %}">Contact Us</a>
             </div>
+            {% if user.is_authenticated %}
             <div class="form-inline my-2 my-lg-0">
-                <a class="nav-link" href="#">Login</a>
+                <a class="nav-link" href="{%url 'logout' %}">Logout</a>
             </div>
+            {% else %}
+            <div class="form-inline my-2 my-lg-0">
+                <a class="nav-link" href="{%url 'login' %}">Login</a>
+            </div>
+            {% endif %}
             <a class="nav-link" href="{% url 'Cart' %}">
                 <i class="fa-solid fa-cart-shopping" style="font-size: 30px; margin-left: 10px;"></i>
             </a>

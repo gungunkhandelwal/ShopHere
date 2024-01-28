@@ -1,6 +1,15 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block body %}
+<!-- wok=rk on this -->
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+	{{message}}
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endfor %}
+{% endif %}
 <div class="row">
 	{% for product in products %}
 	<div class="col-lg-4" style="margin-top: 25px;">
