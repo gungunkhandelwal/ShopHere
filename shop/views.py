@@ -4,8 +4,6 @@ from .models import *
 import json
 import datetime
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.forms import UserCreationForm
-from .forms import CreateUserForm
 
 
 from .utilis import cookieCart ,cartData
@@ -75,22 +73,6 @@ def contact(request):
         contact = ContactUs(name=name, email=email,desc=desc)
         contact.save()
     return render(request,'contact.html')
-
-def registerPage(request):
-    form=CreateUserForm()
-
-    if request.method=="POST":
-        form=CreateUserForm(request.POST)
-        if form.is_valid():
-            form.save()
-
-
-    context={'form':form}
-    return render(request,'register.html',context)
-
-def loginPage(request):
-    context={}
-    return render(request,'login.html',context)
 
 @csrf_exempt
 def processOrder(request):
