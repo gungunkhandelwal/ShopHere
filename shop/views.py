@@ -63,18 +63,25 @@ def updateItem(request):
     return JsonResponse('Item was added',safe=False)
 
 def prodView(request, myid):
+    data=cartData(request)  #Request data from cartData function
+    
+    cartItems=data['cartItems'] #Get number of item present in cart
+    
     product=Product_details.objects.filter(id=myid)
     #Fetch the product using the id
-    return render(request, "prodView.html",{'products':product[0]})
+    return render(request, "prodView.html",{'products':product[0],'cartItems':cartItems})
 
 def contact(request):
+    data=cartData(request)  #Request data from cartData function
+    
+    cartItems=data['cartItems'] #Get number of item present in cart
     if request.method=="POST":
         name=request.POST.get('name', '')
         email=request.POST.get('email', '')
         desc=request.POST.get('desc', '')
         contact = ContactUs(name=name, email=email,desc=desc)
         contact.save()
-    return render(request,'contact.html')
+    return render(request,'contact.html',{'cartItems':cartItems})
 
 @csrf_exempt
 def processOrder(request):
@@ -106,6 +113,9 @@ def processOrder(request):
 # User authentication
 
 def login_user(request):
+    data=cartData(request)  #Request data from cartData function
+    
+    cartItems=data['cartItems'] #Get number of item present in cart
     if request.method =='POST':
         username=request.POST['username']
         password=request.POST['password']
@@ -115,10 +125,10 @@ def login_user(request):
             messages.success(request,('You have been logged In!!'))
             return redirect('index')
         else:
-            messages.success(request,('There is an error,Try Again..'))
-            return render(request,'login.html')
+            print('Error')
+            return render(request,'login.html',{'cartItems':cartItems})
     else:
-        return render(request,'login.html')
+        return render(request,'login.html',{'cartItems':cartItems})
 
 def logout_user(request):
     logout(request)
@@ -146,6 +156,9 @@ def register_user(request):
     
 
 def update_user(request):
+    data=cartData(request)  #Request data from cartData function
+    
+    cartItems=data['cartItems'] #Get number of item present in cart
     if request.user.is_authenticated:
         current_users=User.objects.get(id=request.user.id)
         user_form=UpdateUserForm(request.POST or None,instance=current_users)
@@ -155,12 +168,15 @@ def update_user(request):
             login(request,current_users)
             messages.success(request,"User has been Uploaded !!")
             return redirect('index')
-        return render(request,'update_user.html',{'user_form':user_form})
+        return render(request,'update_user.html',{'user_form':user_form,'cartItems':cartItems})
     else:
         messages.success(request,"You must belogged in !!")
         return redirect('index')
 
 def update_password(request):
+    data=cartData(request)  #Request data from cartData function
+    
+    cartItems=data['cartItems'] #Get number of item present in cart
     if request.user.is_authenticated:
         current_user=request.user
         if request.method =='POST':
@@ -174,8 +190,8 @@ def update_password(request):
                     messages.error(request,error)
         else:
             form=ChangePassword(current_user)
-            return render(request,'update_password.html',{'form':form})
+            return render(request,'update_password.html',{'form':form,'cartItems':cartItems})
     else:
         messages.success(request,"You have been login in")
         return redirect('index')
-    return render(request,'update_password.html',{'form':form})
+    return render(request,'update_password.html',{'form':form,'cartItems':cartItems})

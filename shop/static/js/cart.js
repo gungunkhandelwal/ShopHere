@@ -1,62 +1,57 @@
-
-let updateBtns=document.getElementsByClassName('update-cart');
-
-for(let i=0;i<updateBtns.length;i++){
-    updateBtns[i].addEventListener('click',function(){
-        let productId=this.dataset.product
-        let action=this.dataset.action
-
-        if(user == 'AnonymousUser'){
-            addCookieItem(productId,action);
-        }else{
-            updateUserOrder(productId,action);
-            
-        }
-
-    })
-}
-// For anonynomous user
-
-function addCookieItem(productId,action){
-
-    if (action=='add'){
-        if(cart[productId]==undefined){
-            cart[productId]={'quantity':1};
-        }
-        else{
-            cart[productId]['quantity'] +=1;
-        }
+// Function to handle both authenticated and anonymous users
+function handleCartItemUpdate(productId, action) {
+    if (user === 'AnonymousUser') {
+        addCookieItem(productId, action);
+    } else {
+        updateUserOrder(productId, action);
     }
+        
+}
 
-    if(action=='remove'){
-        cart[productId]['quantity'] -=1;
+// Event listener for update-cart buttons
+document.querySelectorAll('.update-cart').forEach(btn => {
+    btn.addEventListener('click', function () {
+        const productId = this.dataset.product;
+        const action = this.dataset.action;
+        handleCartItemUpdate(productId, action);
+    });
+});
 
-        if(cart[productId]['quantity']<=0){
+// For anonymous users
+function addCookieItem(productId, action) {
+    cart[productId] = cart[productId] || { 'quantity': 0 };
+
+    if (action === 'add') {
+        cart[productId]['quantity'] += 1;
+    } else if (action === 'remove') {
+        cart[productId]['quantity'] -= 1;
+        if (cart[productId]['quantity'] <= 0) {
             delete cart[productId];
         }
-
     }
-    document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/";
+
+    document.cookie = `cart=${JSON.stringify(cart)}; domain=; path=/`;
     location.reload();
 }
 
-
-
-function updateUserOrder(productId,action){
-
-    let url='/update_item/';
-    fetch (url,{
-        method:'POST',
-        headers:{
-            'Content-Type':'application/json',
-            'X-CSRFToken':csrftoken,
+// Function to update user order
+function updateUserOrder(productId, action) {
+    const url = '/update_item/';
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
         },
-        body:JSON.stringify({'productId':productId,'action':action})
-    })
-    .then((response)=>{
-        return response.json();
-    })
-    .then((data)=>{
-        location.reload();
-    });
+        body: JSON.stringify({ productId, action }),
+    };
+
+    fetch(url, requestOptions)
+        .then(response => response.json())
+        .then(() => {
+            location.reload();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
