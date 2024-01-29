@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
-from .forms import SignUpForm
+from .forms import SignUpForm,UpdateUserForm,ChangePassword
 from .utilis import cookieCart ,cartData
 
 def index(request):
@@ -143,4 +143,39 @@ def register_user(request):
             return redirect('register')
     else:
         return render(request,'register.html',{'form':form})
+    
 
+def update_user(request):
+    if request.user.is_authenticated:
+        current_users=User.objects.get(id=request.user.id)
+        user_form=UpdateUserForm(request.POST or None,instance=current_users)
+
+        if user_form.is_valid():
+            user_form.save()
+            login(request,current_users)
+            messages.success(request,"User has been Uploaded !!")
+            return redirect('index')
+        return render(request,'update_user.html',{'user_form':user_form})
+    else:
+        messages.success(request,"You must belogged in !!")
+        return redirect('index')
+
+def update_password(request):
+    if request.user.is_authenticated:
+        current_user=request.user
+        if request.method =='POST':
+            form=ChangePassword(current_user,request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request,"You have been Change Password Successfully!! Please Login In again ")
+                return redirect('login')
+            else:
+                for error in list(form.errors.values()):
+                    messages.error(request,error)
+        else:
+            form=ChangePassword(current_user)
+            return render(request,'update_password.html',{'form':form})
+    else:
+        messages.success(request,"You have been login in")
+        return redirect('index')
+    return render(request,'update_password.html',{'form':form})
