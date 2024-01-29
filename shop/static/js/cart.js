@@ -51,7 +51,4 @@ function updateUserOrder(productId, action) {
         .then(() => {
             location.reload();
         })
-        .catch(error => {
-            console.error('Error:', error);
-        });
 }

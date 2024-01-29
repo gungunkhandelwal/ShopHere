@@ -1,5 +1,19 @@
 {% extends 'index.html' %}
 {% load static %}
+{% block head %}
+<style>
+	.add-btn{
+          color:#274472;
+		  background-color:#c3e0e5;
+	}
+	.add-btn:hover{
+		background-color: #5885af;
+		color: #c3e0e5;
+
+	}
+
+</style>
+{% endblock %}
 {% block body %}
 <div class="row">
 	{% for product in products %}
@@ -10,8 +24,8 @@
 			<hr>
 
 			<button data-product="{{product.id}}" data-action="add"
-				class="btn btn-outline-secondary add-btn  update-cart">Add to Cart</button>
-			<a class="btn" href="products/{{product.id}}" style="color: #5885af; background-color: #c3e0e5;">View</a>
+				class="btn add-btn  update-cart">Add to Cart</button>
+			<a class="btn add-btn" href="products/{{product.id}}">View</a>
 			<h4 style="display: inline-block;"><strong> Rs.{{product.price}}</strong></h4>
 
 		</div>

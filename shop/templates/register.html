@@ -7,15 +7,27 @@
         margin: auto;
         margin-top: 20px;
     }
+    .reg_head{
+        color: #274472;
+        text-decoration: underline;
+    }
+    .reg_btn{
+        color: #c3e0e5;
+        background-color: #5885af;
+    }
+    .reg_btn:hover{
+        color: #5885af;
+        background-color: #c3e0e5;
+    }
 </style>
 {% endblock %}
 {% block body %}
 <div class="container register-container">
-    <h2 class="text-center mb-4">Register</h2>
+    <h2 class="text-center mb-4 reg_head">Register</h2>
     <form method="POST" action="{% url 'register' %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary btn-block">Register</button>
+        <button type="submit" class="btn  btn-block reg_btn">Register</button>
     </form>
     <div class="text-center mt-3">
         <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>

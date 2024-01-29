@@ -3,19 +3,32 @@
 {% block head %}
 <style>
     .update-container {
-        max-width: 800px;
+        max-width: 900px;
         margin: auto;
         margin-top: 20px;
+
+    }
+    .p_head{
+        color: #274472;
+        text-decoration: underline;
+    }
+    .upBtn{
+        background-color:#5885af;
+        color: #c3e0e5;
+    }
+    .upBtn:hover{
+        background-color: #c3e0e5;
+        color: #5885af;
     }
 </style>
 {% endblock %}
 {% block body %}
 <div class="container update-container">
-    <h2 class="text-center mb-4">Profile</h2>
+    <h2 class="text-center mb-4 p_head">Profile</h2>
     <form method="POST" action="{% url 'update_user' %}">
         {% csrf_token %}
         {{ user_form.as_p }}
-        <button type="submit" class="btn btn-primary btn-block">Update Profile</button>
+        <button type="submit" class="btn upBtn btn-block">Update Profile</button>
     </form>
     <div class="text-center mt-3">
         <p>Change Password ? <a href="{% url 'update_password' %}">Click Here</a></p>

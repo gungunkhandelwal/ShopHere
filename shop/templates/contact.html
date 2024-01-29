@@ -1,5 +1,36 @@
 {% extends 'index.html' %}
 {% load static %}
+{% block head %}
+<style>
+    h2{
+        color: #274472;
+        text-decoration: underline;
+    }
+    div label{
+        color: #274472;
+    }
+    h4{
+        color: #c3e0e5;
+        text-decoration: underline;
+        margin-top: 50px;
+    }
+    p{
+        color: #c3e0e5;
+    }
+    .info{
+        background-color: #5885af;
+        text-align: center;
+    }
+    .sub{
+        background-color:#5885af;
+        color: #c3e0e5;
+    }
+    .sub:hover{
+        background-color: #c3e0e5;
+        color: #5885af;
+    }
+</style>
+{% endblock %}
 {% block body %}
 <div class="container mt-5">
     <h2>Contact Us</h2>
@@ -23,11 +54,11 @@
                     <textarea class="form-control" id="message" rows="5" placeholder="Enter your message"></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                <button type="submit" class="btn sub mt-2">Submit</button>
             </form>
         </div>
 
-        <div class="col-md-6 mt-4">
+        <div class="col-md-6 mt-4 info">
             <!-- Contact Information -->
             <h4>Contact Information</h4>
             <p>Email: Shophere123@gmail.com</p>

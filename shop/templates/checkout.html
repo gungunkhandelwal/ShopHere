@@ -1,5 +1,21 @@
 {% extends 'index.html' %}
 {% load static %}
+{% block head %}
+<style>
+    .backCart{
+        color: #c3e0e5;
+        background-color: #5885af;
+    }
+    .backCart:hover{
+        color: #5885af;
+        background-color: #c3e0e5;
+
+    }
+    h3,h5{
+        color: #274472;
+    }
+</style>
+{% endblock %}
 {% block body %}
 <div class="row">
     <div class="col-lg-6">
@@ -37,7 +53,7 @@
 
                 <hr>
                 <div class="d-grid gap-2">
-                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue" style="color: #c3e0e5; background-color: #5885af;">
+                <input id="form-button" class="btn btn-block backCart" type="submit" value="Continue">
                 </div>
             </form>
         </div>
@@ -52,7 +68,7 @@
 
     <div class="col-lg-6">
         <div class="box-element">
-            <a class="btn btn-outline-secondary" href="{% url 'Cart' %}">&#x2190; Back to Cart</a>
+            <a class="btn  backCart" href="{% url 'Cart' %}">&#x2190; Back to Cart</a>
             <hr>
             <h3>Order Summary</h3>
             <hr>

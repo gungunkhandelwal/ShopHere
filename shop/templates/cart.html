@@ -1,11 +1,34 @@
 {% extends 'index.html' %}
 {% load static %}
+{% block head %}
+<style>
+    .check_btn{
+        background-color:#5885af;
+        color: #c3e0e5;
+        float:right; 
+        margin:5px;
+    }
+    .check_btn:hover{
+        background-color: #c3e0e5;
+        color: #5885af;
+    }
+    .shop_btn{
+        color: #c3e0e5;
+        background-color: #5885af;
+    }
+    .shop_btn:hover{
+        color: #5885af;
+        background-color: #c3e0e5;
+
+    }
+</style>
+{% endblock %}
 {% block body %}
 <div class="row">
     <div class="col-lg-12">
         <div class="box-element">
 
-            <a class="btn btn-outline-dark" href="{% url 'index' %}">&#x2190; Continue Shopping</a>
+            <a class="btn shop_btn" href="{% url 'index' %}">&#x2190; Continue Shopping</a>
 
             <br>
             <br>
@@ -18,7 +41,7 @@
                         <h5>Total:<strong>Rs.{{order.get_cart_total}}</strong></h5>
                     </th>
                     <th>
-                        <a style="float:right; margin:5px; color: #c3e0e5; background-color: #5885af;" class="btn"
+                        <a class="btn check_btn"
                             href="{% url 'Checkout' %}">Checkout</a>
                     </th>
                 </tr>

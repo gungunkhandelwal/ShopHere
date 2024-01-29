@@ -39,28 +39,35 @@ def checkout(request):
     context={'items':items,'order':order,'cartItems':cartItems}
     return render(request,'checkout.html',context)
 
+@csrf_exempt 
 def updateItem(request):
-    data=json.loads(request.body)
-    productId=data['productId']
-    action=data['action']
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            productId = data['productId']
+            action = data['action']
 
-    customer=request.user.customer
-    product=Product_details.objects.get(id=productId)
-    order,created=Order.objects.get_or_create(customer=customer,complete=False)
+            customer = request.user.customer
+            product = Product_details.objects.get(id=productId)
+            order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
+            orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+            if action == 'add':
+                orderItem.quantity = (orderItem.quantity + 1)
+            elif action == 'remove':
+                orderItem.quantity = (orderItem.quantity - 1)
+            
+            orderItem.save()
 
-    orderItem,created= OrderItem.objects.get_or_create(order=order,product=product)
-    if action =='add':
-        orderItem.quantity=(orderItem.quantity+1)
+            if orderItem.quantity <= 0:
+                orderItem.delete()
+
+            return JsonResponse({'message': 'Item was updated successfully'})
+        except json.JSONDecodeError as e:
+            return JsonResponse({'error': str(e)})
+    else:
+        return JsonResponse({'error': 'Invalid request method'})
     
-    elif action == 'remove':
-        orderItem.quantity=(orderItem.quantity -1)
-    orderItem.save()
-    
-
-    if orderItem.quantity <=0:
-        orderItem.delete()
-    return JsonResponse('Item was added',safe=False)
 
 def prodView(request, myid):
     data=cartData(request)  #Request data from cartData function

@@ -7,22 +7,39 @@
         margin: auto;
         margin-top: 100px;
     }
+    .login_btn{
+        margin-top: 10px;
+        color: #c3e0e5;
+        background-color: #5885af;
+    }
+    .login_btn:hover{
+        background-color: #c3e0e5;
+        color: #5885af;
+    }
+    .log_head{
+        color: #274472;
+        text-decoration: underline;
+    }
+
+    .details{
+        padding: 5px;
+    }
 </style>
 {% endblock %}
 {% block body %}
 <div class="container login-container">
-    <h2 class="text-center mb-4">Login</h2>
+    <h2 class="text-center mb-4 log_head">Login</h2>
     <form method="POST" action="{% url 'login' %}">
         {% csrf_token %}
-        <div class="form-group">
+        <div class="form-group details">
             <label for="username">Username</label>
             <input type="text" class="form-control" id="username"  name='username' placeholder="Enter your username">
         </div>
-        <div class="form-group">
+        <div class="form-group details">
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
+        <button type="submit" class="btn btn-block login_btn">Login</button>
     </form>
     <div class="text-center mt-3">
         <p>New user? <a href="{% url 'register' %}">Register here</a></p>
