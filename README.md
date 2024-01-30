@@ -12,8 +12,11 @@ __Requirements:__
 
 
 `git clone https://github.com/gungunkhandelwal/ShopHere.git)`
+
 `cd ShopHere/`
+
 `python3 manage.runserver`
+
 `python3 manage.py startapp shop`
 
 # Features
