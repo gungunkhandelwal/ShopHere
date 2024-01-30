@@ -2,29 +2,30 @@
 
 ShopHere is an Ecommerce website.Its purpose is to learn technology and upgrade my skill on the journey of my web development.
 
-Requirements:
+__Requirements:__
 
-Frontend :  HTML5  Bootstrap  Javascript
-Backend : Python Django 
-Version Control : Ubuntu Git GitHub
+- Frontend :  HTML5  Bootstrap  Javascript
+* Backend : Python Django 
++ Version Control : Ubuntu Git GitHub
 
 # Installing
 
-git clone https://github.com/gungunkhandelwal/ShopHere.git
-cd ShopHere/
-python3 manage.runserver
-python3 manage.py startapp shop
+
+`git clone https://github.com/gungunkhandelwal/ShopHere.git)`
+`cd ShopHere/`
+`python3 manage.runserver`
+`python3 manage.py startapp shop`
 
 # Features
 
-1. User Authentication : In my prjoject i make user authentication system by using django authentication . I make login,logout , register , profile where you update your profile and change password.
+1. __User Authentication__
 
-2. Product Management
+2. __Product Management__
 
-3. Shopping Cart
+3. __Shopping Cart__
 
-4. Checkout Process
+4. __Checkout Process__
 
-5. Order Management
+5. __Order Management__
 
-6. Responsive Design
+6. __Responsive Design__
